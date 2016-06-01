@@ -404,7 +404,7 @@
 - (UITapGestureRecognizer *)resetTapGesture {
     if (_resetTapGesture) return _resetTapGesture;
     
-    _resetTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetTopViewAnimated:)];
+    _resetTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(detectTapGestureRecognizer:)];
     
     return _resetTapGesture;
 }
@@ -741,6 +741,12 @@
         }
         [self.customAnchoredGesturesViewMap removeAllObjects];
     }
+}
+
+#pragma mark - UITapGestureRecognizer action
+
+- (void)detectTapGestureRecognizer:(UITapGestureRecognizer *)recognizer {
+    [self resetTopViewAnimated:YES];
 }
 
 #pragma mark - UIPanGestureRecognizer action
