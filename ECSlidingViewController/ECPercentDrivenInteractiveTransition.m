@@ -26,7 +26,6 @@
 @interface ECPercentDrivenInteractiveTransition ()
 @property (nonatomic, assign) id<UIViewControllerContextTransitioning> transitionContext;
 @property (nonatomic, assign) BOOL isActive;
-- (void)removeAnimationsRecursively:(CALayer *)layer;
 @end
 
 @implementation ECPercentDrivenInteractiveTransition
@@ -36,7 +35,6 @@
     self.transitionContext = transitionContext;
     
     CALayer *containerLayer = [self.transitionContext containerView].layer;
-    [self removeAnimationsRecursively:containerLayer];
     [self.animationController animateTransition:transitionContext];
     [self updateInteractiveTransition:0];
 }
@@ -105,17 +103,6 @@
         CALayer *layer = [self.transitionContext containerView].layer;
         [layer removeAllAnimations];
         layer.speed = 1.0;
-    }
-}
-
-#pragma mark - Private
-
-- (void)removeAnimationsRecursively:(CALayer *)layer {
-    if (layer.sublayers.count > 0) {
-        for (CALayer *subLayer in layer.sublayers) {
-            [subLayer removeAllAnimations];
-            [self removeAnimationsRecursively:subLayer];
-        }
     }
 }
 
